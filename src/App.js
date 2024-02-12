@@ -1,24 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
+import DataComponent from './DataComponent';
+import OrderDetails from './OrderDetails';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import AddOrder from './AddOrder';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<DataComponent />} />
+          <Route path="OrderDetails/:id" element={<OrderDetails />} />
+          <Route path="DataComponent" element={<DataComponent />}></Route>
+          <Route path="AddOrder" element={<AddOrder />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div >
   );
 }
 
