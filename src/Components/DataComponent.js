@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Input, List, ListItem, Tab, Table } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import {
   TableRow,
@@ -14,6 +15,10 @@ import {
 
 
 const DataComponent = () => {
+
+  const result = useSelector((state)=>state.Data.ordersData);
+  console.log(result);
+
   const [data, setData] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 

@@ -1,9 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
-import DataComponent from './DataComponent';
-import OrderDetails from './OrderDetails';
+import DataComponent from './Components/DataComponent';
+import OrderDetails from './Components/OrderDetails';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import AddOrder from './AddOrder';
+import AddOrder from './Components/AddOrder';
 
 function App() {
   return (
@@ -12,8 +12,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<DataComponent />} />
           <Route path="OrderDetails/:id" element={<OrderDetails />} />
-          <Route path="DataComponent" element={<DataComponent />}></Route>
-          <Route path="AddOrder" element={<AddOrder />}></Route>
+          <Route path="/DataComponent" element={<DataComponent />}></Route>
+          <Route path="/AddOrder" element={<AddOrder />}></Route>
         </Routes>
       </BrowserRouter>
     </div >
