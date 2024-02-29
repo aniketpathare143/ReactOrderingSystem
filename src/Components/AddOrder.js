@@ -131,8 +131,7 @@ const AddOrder = () => {
                 <FormField><LabelDetail>Address Line1:</LabelDetail><Input type="TextArea" name='addressLine1' value={formData.address.addressLine1} onChange={handleAddressChange} error={errors.addressLine1}></Input><br></br></FormField>
                 <FormField><LabelDetail>Address Line2:</LabelDetail><Input type="Text" name='addressLine2' value={formData.address.addressLine2} onChange={handleAddressChange} error={errors.addressLine2}></Input><br></br></FormField>
                 <FormField><LabelDetail>Pincode:</LabelDetail><Input type="Text" name='pincode' value={formData.address.pincode} onChange={handleAddressChange} error={errors.pincode}></Input><br></br></FormField>
-                <FormField><LabelDetail>Upload photo:</LabelDetail>
-                    {/* <Input type="file" name="productImage" accept="image/*" value={formData.productImage} onChange={handleImageChange}></Input> */}
+                <FormField><LabelDetail>Upload photo:  <i class="cloud upload icon"></i></LabelDetail>
                     <div>
                         <input type="file" name="image" accept="image/*" onChange={handleImageChange} />
                     </div>

@@ -60,17 +60,25 @@ const OrderDetails = () => {
 
     return (
         <div className="order-details">
-            <h2>Order Details for Order Id - {order.orderId} </h2>           
-            <List bulleted>
-                <ListItem><strong>Order ID:</strong> {order.orderId}</ListItem>
-                <ListItem><strong>Product Name:</strong> {order.productName}</ListItem>               
-                <ListItem><strong>Date:</strong> {order.date}</ListItem>
-                <ListItem><strong>Placed By:</strong> {order.placedBy}</ListItem>
-                <img src={imageSrc}></img>
-                <ListItem><strong>Address Line1:</strong> {order.addressLine1}</ListItem>
-                <ListItem><strong>Address Line2:</strong> {order.addressLine2}</ListItem>
-                <ListItem><strong>Pincode:</strong> {order.pincode}</ListItem>
-            </List>
+            <div class="ui blue large header">Order Details</div>
+            <div class="ui grey medium header">Product name-{order.productName}</div>
+            <p></p>
+
+            <div class="ui card">
+                <div class="image">
+                    <img src={imageSrc} />
+                </div>
+                <div class="content">
+                    <a class="header">{order.placedBy}</a>
+                    <div class="meta">
+                        <span class="date">Order created on - {order.date}</span>
+                    </div>
+                    <div class="description">
+                        From - {order.addressLine1 + " " + order.addressLine2 + " "}
+                        Pincode - {order.pincode}
+                    </div>
+                </div>
+            </div>
             <div>
                 <Link to='/DataComponent'>
                     <Button primary content="Go Back" ></Button>

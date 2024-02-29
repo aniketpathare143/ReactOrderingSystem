@@ -1,7 +1,7 @@
 // DataComponent.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Button, Input, List, ListItem, Tab, Table } from 'semantic-ui-react';
+import { Button, Input, Table, Pagination } from 'semantic-ui-react';
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -16,31 +16,54 @@ import {
 
 const DataComponent = () => {
 
-  const result = useSelector((state)=>state.Data.ordersData);
+  const result = useSelector((state) => state.Data.ordersData);
   console.log(result);
 
   const [data, setData] = useState([]);
+  const [pageCount, setpageCount] = useState(1);
   const [searchInput, setSearchInput] = useState('');
+  const [start, setStart] = useState(0);
+  const [end, setEnd] = useState(3);
+  var filteredData = [];
+
+  const setStartCount = () => {
+    setStart(end)
+  }
+
+  const HandleNextCount = () => {
+    setStartCount();
+    //if (end = filteredData.length)
+    setEnd(end + 3)
+    setpageCount(pageCount + 1)
+  }
+
+  const setEndCount = () => {
+    //if (end <= filteredData.length)
+    setStart(start - 3)
+  }
+
+  const HandlePreviousCount = () => {
+    setEndCount();
+    setEnd(end - 3)
+    setpageCount(pageCount - 1)
+  }
 
   const SearchProduct = (e) => {
-    setSearchInput(e);
-    //Immediate invoke function IIF
-    (
-      async () => {
-        try {
-          const response = await axios.get(`http://localhost:5179/api/order/search?key=${e}`);
-          if (response.statusText == 'OK') {
-            setData(response.data);
-          }
-          else {
-            //alert('No orders found ')
-          }
-        }
-        catch (error) {
-          console.log(error);
-        }
-      }
-    )()
+    setSearchInput(e)
+  }
+
+  console.log(data.length);
+  console.log("start: " + start)
+  console.log("end: " + end)
+
+  if (searchInput === "") {
+    filteredData = data
+    filteredData = filteredData.slice(start, end);
+  }
+  else {
+    filteredData = data.filter((res) => res.productName.startsWith(searchInput));
+    filteredData = filteredData.slice(start, end);
+    //setData(filteredData);
   }
 
   useEffect(() => {
@@ -66,7 +89,7 @@ const DataComponent = () => {
         </div>
         <div class="results"></div>
       </div>
-      <Table celled>
+      <Table sortable celled>
         <TableHeader>
           <TableRow>
             <TableHeaderCell>Order ID</TableHeaderCell>
@@ -77,7 +100,7 @@ const DataComponent = () => {
         </TableHeader>
         <TableBody>
           {
-            data.map((item) => (
+            filteredData.map((item) => (
               <TableRow key={item.orderId}>
                 <TableCell>{item.orderId}</TableCell>
                 <TableCell>{item.productName}</TableCell>
@@ -93,12 +116,27 @@ const DataComponent = () => {
           }
         </TableBody>
       </Table>
+      <div class="ui container" style={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Button class="ui button">{pageCount}</Button>
+        {
+          start <= 0 ?
+            <Button class="ui button" floated='right' disabled>Previous</Button> :
+            <Button class="ui button" floated='right' onClick={HandlePreviousCount}>Previous</Button>
+        }
+        {
+          end >= data.length ?
+            <Button class="ui button" floated='right' disabled>Next</Button> :
+            <Button class="ui button" floated='right' onClick={HandleNextCount}>Next</Button>
+        }
+      </div>
       <Link to='/AddOrder'>
         <Button content="AddOrder" primary>
         </Button>
       </Link>
+
     </div>
   );
 };
+
 
 export default DataComponent;
